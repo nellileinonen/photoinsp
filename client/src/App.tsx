@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
 
+import Photolist from './components/photolist/Photolist';
+
 const App: React.FC = () => {
   const [thumbnails, setThumbnails] = useState<{id: string, thumb: string, alt: string}[]>([]);
 
@@ -29,6 +31,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <h1>Photoinsp</h1>
+      <Photolist />
       {thumbnails.map(photo => (
         <img
           key={photo.id}
