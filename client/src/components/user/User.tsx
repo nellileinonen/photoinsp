@@ -7,7 +7,7 @@ const User: React.FC = () => {
       <p>username</p>
       <p>info</p>
     </div>
-  )
-};
+  );
+}
 
 export default User;

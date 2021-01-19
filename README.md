@@ -10,6 +10,8 @@ Current version in Heroku: https://photoinsp.herokuapp.com/
 
 - React (Create React App with typescript template)
 
+The app state is managed with Redux.
+
 ### Back-end
 
 - Node.js
