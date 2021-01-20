@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchPhotos } from '../../redux/photosSlice';
 import { RootState } from '../../redux/rootReducer';
 
+import { Link, useLocation } from 'react-router-dom';
+
 import Thumbnail from './Thumbnail';
 
 const Photolist: React.FC = () => {
@@ -12,6 +14,8 @@ const Photolist: React.FC = () => {
   const photos = useSelector((state: RootState) => state.photos.photos);
   const photosStatus = useSelector((state: RootState) => state.photos.status);
   const error = useSelector((state: RootState) => state.photos.error);
+
+  let location = useLocation();
 
   useEffect(() => {
     // Only fetch initial list of photos once
@@ -25,10 +29,18 @@ const Photolist: React.FC = () => {
     content = <div>Loading...</div>;
   } else if (photosStatus === 'succeeded') {
     console.log(photos);
-    content = photos.map((photo: any) => (
-      // TODO All the info as props or fetched from store in Thumbnail directly by photoId
-      <Thumbnail key={photo.photoId} photoId={photo.photoId} thumb={photo.thumb} alt={photo.alt} />
-    ));
+    content = photos.map((photo: any) => 
+      <Link
+        key={photo.photoId}
+        to={{
+          pathname: `/photo/${photo.photoId}`,
+          state: { background: location }
+        }}
+      >
+        {/* TODO All the info as props or fetched from store in Thumbnail directly by photoId */}
+        <Thumbnail photoId={photo.photoId} thumb={photo.thumb} alt={photo.alt} />
+      </Link>
+    );
   } else if (photosStatus === 'failed') {
     content = <div>{error}</div>;
   }

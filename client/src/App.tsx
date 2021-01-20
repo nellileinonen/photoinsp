@@ -1,13 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import './App.css';
-import Photolist from './components/photolist/Photolist';
+import Header from './components/header/Header';
+import RootRoutes from './RootRoutes';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>Photoinsp</h1>
-      <Photolist />
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <RootRoutes />
+      </div>
+    </Router>
   );
 }
 

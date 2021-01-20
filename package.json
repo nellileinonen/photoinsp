@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.ts",
-    "deploy": "npm run tsc && cd client && npm run build && cd .. && git add . && git commit -m 'Latest build' && git push heroku main && git push photoinsp main",
+    "deploy": "npm run tsc && cd client && npm run build && cd .. && git add . && git commit -m 'Latest build' && git push heroku main && git push origin main",
     "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

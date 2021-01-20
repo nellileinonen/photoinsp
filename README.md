@@ -2,7 +2,7 @@
 
 A web app displaying inspirational photos from [Unsplash API](https://unsplash.com/developers).
 
-Current version in Heroku: https://photoinsp.herokuapp.com/
+Current version on Heroku: https://photoinsp.herokuapp.com/
 
 ## Tech
 
@@ -11,6 +11,8 @@ Current version in Heroku: https://photoinsp.herokuapp.com/
 - React (Create React App with typescript template)
 
 The app state is managed with Redux.
+
+Routing is implemented with the [BrowserRouter of React Router](https://reactrouter.com/web/api/BrowserRouter).
 
 ### Back-end
 
