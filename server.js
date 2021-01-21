@@ -44,21 +44,36 @@ var axios_1 = __importDefault(require("axios"));
 var path_1 = __importDefault(require("path"));
 // Require and configure .env where api key is defined
 require('dotenv').config();
+// Custom Axios instance with to prevent repetition when app is scaled larger
+// and it fetches info from multiple api endpoints
+var axiosInstance = axios_1.default.create({
+    method: 'GET',
+    baseURL: 'https://api.unsplash.com',
+    headers: {
+        'Authorization': "Client-ID " + process.env.API_KEY
+    },
+    params: {
+        per_page: 30
+    }
+});
 var app = express_1.default();
-console.log(path_1.default.join(__dirname, '/client/build'));
 app.use(express_1.default.static(path_1.default.join(__dirname, '/client/build')));
 app.get('/', function (req, res) {
     res.send('GET /');
 });
+/* Keep API key hidden from front end by getting data from API here and
+ * sending only the response data to front end
+ */
 app.get('/photos', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var response, err_1;
+    var pageNumber, response, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, axios_1.default.get('https://api.unsplash.com/photos/', {
-                        headers: {
-                            'Authorization': "Client-ID " + process.env.API_KEY
+                pageNumber = req.query.page;
+                return [4 /*yield*/, axiosInstance.get('/photos', {
+                        params: {
+                            page: pageNumber
                         }
                     })];
             case 1:
@@ -69,6 +84,7 @@ app.get('/photos', function (req, res) { return __awaiter(void 0, void 0, void 0
             case 2:
                 err_1 = _a.sent();
                 console.log(err_1);
+                res.send(err_1);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
