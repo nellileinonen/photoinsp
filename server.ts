@@ -5,28 +5,46 @@ import path from 'path';
 // Require and configure .env where api key is defined
 require('dotenv').config();
 
+// Custom Axios instance with to prevent repetition when app is scaled larger
+// and it fetches info from multiple api endpoints
+const axiosInstance = axios.create({
+  method: 'GET',
+  baseURL: 'https://api.unsplash.com',
+  headers: {
+    'Authorization': `Client-ID ${process.env.API_KEY}`
+  },
+  params: {
+    per_page: 30
+  }
+});
+
 const app = express();
 
-console.log(path.join(__dirname, '/client/build'));
 app.use(express.static(path.join(__dirname, '/client/build')));
 
 app.get('/', (req, res) => {
   res.send('GET /');
 });
 
+/* Keep API key hidden from front end by getting data from API here and
+ * sending only the response data to front end
+ */
 app.get('/photos', async (req, res) => {
   try {
-    // Keep API key hidden from client by fetching data from API here and
-    // sending back only the response data
-    const response = await axios.get('https://api.unsplash.com/photos/', {
-      headers: {
-        'Authorization': `Client-ID ${process.env.API_KEY}`
+    // Get page query parameter from request
+    let pageNumber = req.query.page;
+
+    // Fetch photos from right page using page query parameter
+    const response = await axiosInstance.get('/photos', {
+      params: {
+        page: pageNumber
       }
     });
     console.log('GET /photos');
     res.send(response.data);
   } catch (err) {
     console.log(err);
+    res.send(err);
   }
 });
 

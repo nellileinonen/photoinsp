@@ -7,12 +7,14 @@ import { RootState } from '../../redux/rootReducer';
 import { Link, useLocation } from 'react-router-dom';
 
 import Thumbnail from './Thumbnail';
+import ShowMore from './ShowMore';
 
 const Photolist: React.FC = () => {
   const dispatch = useDispatch();
   
   const photos = useSelector((state: RootState) => state.photos.photos);
   const photosStatus = useSelector((state: RootState) => state.photos.status);
+  const pageNumber = useSelector((state: RootState) => state.photos.page);
   const error = useSelector((state: RootState) => state.photos.error);
 
   let location = useLocation();
@@ -20,16 +22,24 @@ const Photolist: React.FC = () => {
   useEffect(() => {
     // Only fetch initial list of photos once
     if (photosStatus === 'idle') {
-      dispatch(fetchPhotos());
+      dispatch(fetchPhotos(pageNumber));
     }
-  }, [photosStatus, dispatch]);
+  }, [photosStatus, pageNumber, dispatch]);
 
-  let content;
-  if (photosStatus === 'loading') {
-    content = <div>Loading...</div>;
-  } else if (photosStatus === 'succeeded') {
-    console.log(photos);
-    content = photos.map((photo: any) => 
+  // Dispatch action to fetch photos
+  const handleShowMore = () => {
+    dispatch(fetchPhotos(pageNumber));
+  }
+
+  return (
+    <div>
+
+      {photosStatus === 'loading' &&
+      <div>
+        Loading...
+      </div>}
+
+      {photos.map((photo: any) =>
       <Link
         key={photo.photoId}
         to={{
@@ -37,23 +47,17 @@ const Photolist: React.FC = () => {
           state: { background: location }
         }}
       >
-        {/* TODO All the info as props or fetched from store in Thumbnail directly by photoId */}
-        <Thumbnail photoId={photo.photoId} thumb={photo.thumb} alt={photo.alt} />
-      </Link>
-    );
-  } else if (photosStatus === 'failed') {
-    content = <div>{error}</div>;
-  }
+        <Thumbnail photoId={photo.photoId} thumbUrl={photo.thumbUrl} alt={photo.alt} />
+      </Link>)}
 
-  // TODO fetch more photos
-  const handleClick = () => {
-    console.log('show me more photos');
-  }
+      {photosStatus === 'succeeded' &&
+      <ShowMore handleShowMore={handleShowMore} />}
 
-  return (
-    <div>
-      {content}
-      <button onClick={() => handleClick()}>Show more</button>
+      {photosStatus === 'failed' &&
+      <div>
+        {error}
+      </div>}
+
     </div>
   );
 }

@@ -23,19 +23,25 @@ Routing is implemented with the [BrowserRouter of React Router](https://reactrou
 
 ### Development
 
-Rename ```.env-example``` as ```.env``` and add your [Unsplash API](https://unsplash.com/developers) key there. Start the Express server in development mode:
+Rename ```.env-example``` as ```.env``` and add your [Unsplash API](https://unsplash.com/developers) key there.
 
+Install the dependencies.
+
+```
+npm install
+```
+And start the Express server in development mode.
 ```
 npm run dev
 ```
 
 The server runs at ```http://localhost:3001```
 
-
-Start the React front-end in development mode:
+Then, go to the ```/client``` directory, install dependencies and start the React front-end in development mode.
 
 ```
 cd client
+npm install
 npm start
 ```
 

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import './Modal.css';
 
-// TODO: an excellent reference for modal view
+// TODO: make sure the modal is accessible:
+// https://tinloof.com/blog/how-to-create-an-accessible-react-modal/
 
 const Modal: React.FC = ({ children }) => {
   let history = useHistory();
@@ -11,9 +12,9 @@ const Modal: React.FC = ({ children }) => {
   // TODO: read again this https://www.carlrippon.com/react-refs-typescript/
   const modalRef = useRef<HTMLInputElement>(null);
 
+  // If mouse is clicked outside modal, close modal by navigating back in history
   const handleClickOutside = (e: any) => {
     if (modalRef.current !== null && (!modalRef.current.contains(e.target))) {
-      //console.log('modalRef.current.contains(e.target): ', modalRef.current.contains(e.target));
       history.goBack();
     }
   };
