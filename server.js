@@ -71,7 +71,6 @@ app.get('/photos/:id', function (req, res) { return __awaiter(void 0, void 0, vo
             case 2:
                 response = _a.sent();
                 console.log('GET ', req.url);
-                console.log(response.data);
                 //console.log(response.data);
                 res.send(response.data);
                 return [3 /*break*/, 4];
