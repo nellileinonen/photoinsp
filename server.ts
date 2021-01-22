@@ -22,8 +22,19 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '/client/build')));
 
-app.get('/', (req, res) => {
-  res.send('GET /');
+app.get('/photos/:id', async (req, res) => {
+  console.log('in server to get single photo: ', req.url);
+  try {
+    // Fetch photo using the same query path as request
+    const response = await axiosInstance.get(req.url);
+    console.log('GET ', req.url);
+    console.log(response.data);
+    //console.log(response.data);
+    res.send(response.data);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
 });
 
 /* Keep API key hidden from front end by getting data from API here and

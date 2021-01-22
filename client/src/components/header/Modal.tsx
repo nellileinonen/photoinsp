@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import './Modal.css';
 
@@ -24,11 +23,16 @@ const Modal: React.FC = ({ children }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   });
 
+  const closeModal = () => {
+    history.goBack();
+  };
+
   return (
     <div ref={modalRef} className='modal-wrapper'>
-      <Link to='/'>
-        X
-      </Link>
+      {/*goes back to mainpage<Link to='/'>
+        XXX
+      </Link>*/}
+      <button onClick={() => closeModal()}>X</button>
       {children}
     </div>
   );

@@ -1,8 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import photosReducer from './photosSlice'; 
+import photolistReducer from './photolistSlice';
+import photoReducer from './photoSlice';
 
 export const rootReducer = combineReducers({
-  photos: photosReducer
+  photolist: photolistReducer,
+  photo: photoReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

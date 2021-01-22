@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPhotos } from '../../redux/photosSlice';
+import { fetchPhotos } from '../../redux/photolistSlice';
 import { RootState } from '../../redux/rootReducer';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Thumbnail from './Thumbnail';
 import ShowMore from './ShowMore';
@@ -12,12 +12,10 @@ import ShowMore from './ShowMore';
 const Photolist: React.FC = () => {
   const dispatch = useDispatch();
   
-  const photos = useSelector((state: RootState) => state.photos.photos);
-  const photosStatus = useSelector((state: RootState) => state.photos.status);
-  const pageNumber = useSelector((state: RootState) => state.photos.page);
-  const error = useSelector((state: RootState) => state.photos.error);
-
-  let location = useLocation();
+  const photos = useSelector((state: RootState) => state.photolist.photolist);
+  const photosStatus = useSelector((state: RootState) => state.photolist.status);
+  const pageNumber = useSelector((state: RootState) => state.photolist.page);
+  const error = useSelector((state: RootState) => state.photolist.error);
 
   useEffect(() => {
     // Only fetch initial list of photos once
@@ -33,22 +31,19 @@ const Photolist: React.FC = () => {
 
   return (
     <div>
+      {photos.map((photo: any) =>
+      <Link
+        key={photo.photoId}
+        to={{pathname: `/photos/${photo.photoId}`}}
+      >
+        <Thumbnail photoId={photo.photoId} thumbUrl={photo.thumbUrl} alt={photo.alt} />
+      </Link>
+      )}
 
       {photosStatus === 'loading' &&
       <div>
         Loading...
       </div>}
-
-      {photos.map((photo: any) =>
-      <Link
-        key={photo.photoId}
-        to={{
-          pathname: `/photo/${photo.photoId}`,
-          state: { background: location }
-        }}
-      >
-        <Thumbnail photoId={photo.photoId} thumbUrl={photo.thumbUrl} alt={photo.alt} />
-      </Link>)}
 
       {photosStatus === 'succeeded' &&
       <ShowMore handleShowMore={handleShowMore} />}

@@ -9,8 +9,15 @@ import Photo from './components/photo/Photo';
 const RootRoutes = () => {
   // TODO: use proper type
   let location: any = useLocation();
-
   let background = location.state && location.state.background;
+
+  /* !! SOS !! This is dangerous and stupid !! SOS !! */
+  //console.log('location in rootroutes: ', location);
+  let photoId = '';
+  const pathElements = location.pathname.split('/');
+  if (pathElements.length === 3 && pathElements[1] === 'photos') {
+    photoId = pathElements.pop();
+  }
 
   return (
     <div>
@@ -21,14 +28,13 @@ const RootRoutes = () => {
         <Route path='/info'>
           <Modal children={<Info />}/>
         </Route>
-        <Route path='/photo/:photoId'>
-          <Modal children={<Photo />}/>
+        <Route path='/photos/:photoId'>
+          <Photo photoId={photoId}/>
         </Route>
       </Switch>
 
       {/* Modal view on top of background if background is set */}
       {background && <Route path='/info'><Modal children={<Info />}/></Route>}
-      {background && <Route path='/photo/:photoId'><Modal children={<Photo/>}/></Route>}
 
     </div>
   );
