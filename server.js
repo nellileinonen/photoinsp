@@ -58,14 +58,37 @@ var axiosInstance = axios_1.default.create({
 });
 var app = express_1.default();
 app.use(express_1.default.static(path_1.default.join(__dirname, '/client/build')));
-app.get('/', function (req, res) {
-    res.send('GET /');
-});
+app.get('/photos/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var response, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log('in server to get single photo: ', req.url);
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, axiosInstance.get(req.url)];
+            case 2:
+                response = _a.sent();
+                console.log('GET ', req.url);
+                console.log(response.data);
+                //console.log(response.data);
+                res.send(response.data);
+                return [3 /*break*/, 4];
+            case 3:
+                err_1 = _a.sent();
+                console.log(err_1);
+                res.send(err_1);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
 /* Keep API key hidden from front end by getting data from API here and
  * sending only the response data to front end
  */
 app.get('/photos', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var pageNumber, response, err_1;
+    var pageNumber, response, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -82,9 +105,9 @@ app.get('/photos', function (req, res) { return __awaiter(void 0, void 0, void 0
                 res.send(response.data);
                 return [3 /*break*/, 3];
             case 2:
-                err_1 = _a.sent();
-                console.log(err_1);
-                res.send(err_1);
+                err_2 = _a.sent();
+                console.log(err_2);
+                res.send(err_2);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
