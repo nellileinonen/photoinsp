@@ -50,7 +50,7 @@ const photolistSlice = createSlice({
       state.error = null;
     })
     .addCase(fetchPhotos.fulfilled, (state, action) => {
-      console.log('fulfilled action: ', action);
+      console.log('fulfilled action: ', action.payload);
       // Photo fetching was successfull if the action payload is an array
       if (Array.isArray(action.payload)) {
         // Update store state: status tells that the fetch succeeded, page tells the next page

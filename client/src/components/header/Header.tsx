@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import { InfoCircleOutlined } from '@ant-design/icons';
+
+import './Header.scss';
+
 const Header: React.FC = () => {
   let location = useLocation();
 
@@ -13,8 +17,9 @@ const Header: React.FC = () => {
         pathname: '/info',
         state: { background: location }
         }}
+        className='info'
       >
-        info
+        <InfoCircleOutlined />
       </Link>
     </header>
   );

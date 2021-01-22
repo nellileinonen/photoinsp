@@ -28,7 +28,6 @@ app.get('/photos/:id', async (req, res) => {
     // Fetch photo using the same query path as request
     const response = await axiosInstance.get(req.url);
     console.log('GET ', req.url);
-    console.log(response.data);
     //console.log(response.data);
     res.send(response.data);
   } catch (err) {

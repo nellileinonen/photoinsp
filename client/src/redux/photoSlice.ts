@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { create } from 'domain';
 
 interface PhotoState {
   photoId: string,

@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
 import Photolist from './components/photolist/Photolist';
-import Modal from './components/header/Modal';
-import Info from './components/header/Info';
+import Modal from './components/header/modal/Modal';
+import Info from './components/header/info/Info';
 import Photo from './components/photo/Photo';
 
 const RootRoutes = () => {
@@ -22,11 +22,11 @@ const RootRoutes = () => {
   return (
     <div>
       <Switch location={background || location}>
-        <Route exact path="/">
-          <Photolist />
-        </Route>
         <Route path='/info'>
           <Modal children={<Info />}/>
+        </Route>
+        <Route exact path="/">
+          <Photolist />
         </Route>
         <Route path='/photos/:photoId'>
           <Photo photoId={photoId}/>

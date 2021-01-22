@@ -6,8 +6,23 @@ import { RootState } from '../../redux/rootReducer';
 
 import { Link } from 'react-router-dom';
 
-import Thumbnail from './Thumbnail';
-import ShowMore from './ShowMore';
+import Thumbnail from './thumbnail/Thumbnail';
+import ShowMore from './showMore/ShowMore';
+import { LoadingOutlined } from '@ant-design/icons';
+
+import './Photolist.scss';
+
+/* 
+ * Helper variable and function to create unique keys to photo thumbnails.
+ * Photo id:s can't be used as keys because data in Unsplash updates often and
+ * same photos can be fetched multiple times if the app is left open and after
+ * some time the user continues browsing where they left
+ */
+let photoCount = 1;
+const giveKey = () => {
+  photoCount = photoCount + 1;
+  return photoCount;
+};
 
 const Photolist: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,29 +42,32 @@ const Photolist: React.FC = () => {
   // Dispatch action to fetch photos
   const handleShowMore = () => {
     dispatch(fetchPhotos(pageNumber));
-  }
+  };
 
   return (
     <div>
-      {photos.map((photo: any) =>
-      <Link
-        key={photo.photoId}
-        to={{pathname: `/photos/${photo.photoId}`}}
-      >
-        <Thumbnail photoId={photo.photoId} thumbUrl={photo.thumbUrl} alt={photo.alt} />
-      </Link>
-      )}
+      <h2>Browse photos, relax and get inspired</h2>
+
+      <div className='flex-container'>
+        {photos.map((photo: any) =>
+        <Link
+          key={giveKey()}
+          to={{pathname: `/photos/${photo.photoId}`}}
+          className='flex-item'
+        >
+          <Thumbnail photoId={photo.photoId} thumbUrl={photo.thumbUrl} alt={photo.alt} />
+        </Link>
+        )}
+      </div>
 
       {photosStatus === 'loading' &&
-      <div>
-        Loading...
-      </div>}
+      <LoadingOutlined className='loading'/>}
 
       {photosStatus === 'succeeded' &&
       <ShowMore handleShowMore={handleShowMore} />}
 
       {photosStatus === 'failed' &&
-      <div>
+      <div className='error'>
         {error}
       </div>}
 

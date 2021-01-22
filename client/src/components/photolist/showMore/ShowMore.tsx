@@ -1,9 +1,11 @@
 import React from 'react';
 
+import './ShowMore.scss';
+
 const ShowMore: React.FC<{handleShowMore: Function}> = ({ handleShowMore }) => {
   return (
-    <div>
-      <button onClick={() => handleShowMore()}>Show more</button>
+    <div className='show-more'>
+      <button onClick={() => handleShowMore()} className='show-more-button'>Show more</button>
     </div>
   );
 }

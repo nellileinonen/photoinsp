@@ -1,0 +1,34 @@
+
+/* Colors */
+$main-dark: #19294D;
+$light-text: #F5F5F5;
+$pink: #D6444B;
+$white: #FFFFFF;
+
+/* Pink button style */
+button {
+  background-color: $white;
+  border: 2px solid $pink;
+  border-radius: 30px;
+  color: $pink;
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 1.2rem;
+  padding: 15px 35px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: $pink;
+  color: $white;
+}
+
+/* Padding for loading icon */
+.loading {
+  padding: 40px 0;
+}
+
+/* Image */
+img {
+  display: block;
+  box-shadow: -2px 5px 5px #D6D6D6;
+}

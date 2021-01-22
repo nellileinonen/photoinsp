@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import './Modal.css';
+import './Modal.scss';
 
 // TODO: make sure the modal is accessible:
 // https://tinloof.com/blog/how-to-create-an-accessible-react-modal/
@@ -28,12 +28,14 @@ const Modal: React.FC = ({ children }) => {
   };
 
   return (
-    <div ref={modalRef} className='modal-wrapper'>
-      {/*goes back to mainpage<Link to='/'>
-        XXX
-      </Link>*/}
-      <button onClick={() => closeModal()}>X</button>
-      {children}
+    <div className='modal-bg'>
+      <div ref={modalRef} className='modal-wrapper'>
+        {/*goes back to mainpage<Link to='/'>
+          X
+        </Link>*/}
+        <button onClick={() => closeModal()} className='close'>X</button>
+        {children}
+      </div>
     </div>
   );
 }
