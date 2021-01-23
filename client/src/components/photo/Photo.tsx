@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchPhoto } from '../../redux/photoSlice';
 import { RootState } from '../../redux/rootReducer';
 
-import { LoadingOutlined } from '@ant-design/icons';
+import PhotoMeta from './photoMeta/PhotoMeta';
+import UserIntro from './userIntro/UserIntro';
 
+import { LoadingOutlined } from '@ant-design/icons';
 import './Photo.scss';
 
 const Photo: React.FC<{photoId: string}> = ({ photoId }) => {
@@ -20,25 +22,15 @@ const Photo: React.FC<{photoId: string}> = ({ photoId }) => {
   }, [dispatch, photoId]);
 
   return (
-    <div>
+    <div className='photo-view'>
       {photoStatus === 'loading' &&
       <LoadingOutlined className='loading'/>}
 
       {photoStatus === 'succeeded' &&
       <>
         <img src={photo.regularUrl} alt={photo.alt} className='regular-photo'/>
-        <div>
-          <div className='photo-info'>
-            <p>{photo.createdAt}
-            <a href={photo.fullUrl} target='_blank' rel='noreferrer'>Full-sized</a></p>
-
-            <div className='user-info'>
-              <p><img src={photo.userImgUrl} alt='' className='user-img'/>
-              {photo.userRealName}<br/>{photo.username}</p>
-            </div>
-
-          </div>
-        </div>
+        <PhotoMeta />
+        <UserIntro />
       </>}
 
       {photoStatus === 'failed' &&
