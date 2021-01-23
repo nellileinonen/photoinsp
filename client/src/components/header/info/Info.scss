@@ -1,13 +1,13 @@
 @import '../../../styles/commons.scss';
 
 .info-content {
-  padding: 0 10px 20px 30px;
+  margin: 10px auto 20px auto;
   width: 90%;
   max-height: 100vh;
   height: 100%;
   overflow: auto;
-}
 
-h3 {
-  padding-top: 15px;
+  h3 {
+    padding-top: 15px;
+  }
 }

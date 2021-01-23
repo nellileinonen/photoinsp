@@ -12,8 +12,7 @@ const Info: React.FC = () => {
       </p>
       <p>
         Here you can calm down and focus on the essential - the photographs.
-        There are no notifications, private messages, likes, friend requests or
-        anything else that could distract you.
+        There are no notifications or anything else that could distract you.
       </p>
       <h3>Whose photos are these?</h3>
       <p>

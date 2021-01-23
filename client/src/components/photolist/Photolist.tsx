@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 
 import Thumbnail from './thumbnail/Thumbnail';
 import ShowMore from './showMore/ShowMore';
-import { LoadingOutlined } from '@ant-design/icons';
 
+import { LoadingOutlined } from '@ant-design/icons';
 import './Photolist.scss';
 
-/* 
+/*
  * Helper variable and function to create unique keys to photo thumbnails.
  * Photo id:s can't be used as keys because data in Unsplash updates often and
  * same photos can be fetched multiple times if the app is left open and after
@@ -46,8 +46,6 @@ const Photolist: React.FC = () => {
 
   return (
     <div>
-      <h2>Browse photos, relax and get inspired</h2>
-
       <div className='flex-container'>
         {photos.map((photo: any) =>
         <Link

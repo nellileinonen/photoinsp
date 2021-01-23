@@ -5,6 +5,7 @@ import Photolist from './components/photolist/Photolist';
 import Modal from './components/header/modal/Modal';
 import Info from './components/header/info/Info';
 import Photo from './components/photo/Photo';
+import Header from './components/header/Header';
 
 const RootRoutes = () => {
   // TODO: use proper type
@@ -22,11 +23,12 @@ const RootRoutes = () => {
   return (
     <div>
       <Switch location={background || location}>
+        <Route exact path="/">
+          <Header />
+          <Photolist />
+        </Route>
         <Route path='/info'>
           <Modal children={<Info />}/>
-        </Route>
-        <Route exact path="/">
-          <Photolist />
         </Route>
         <Route path='/photos/:photoId'>
           <Photo photoId={photoId}/>

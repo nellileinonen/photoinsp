@@ -2,14 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import './App.scss';
-import Header from './components/header/Header';
+import Navigation from './components/header/navigation/Navigation';
 import RootRoutes from './RootRoutes';
 
 const App: React.FC = () => {
   return (
     <Router>
       <div className="App">
-        <Header />
+        <Navigation />
         <RootRoutes />
       </div>
     </Router>

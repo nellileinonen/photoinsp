@@ -6,6 +6,8 @@
   top: 0;
   width: 100%;
   height: 100%;
+  /* To prevent background scrolling off on small screen */
+  max-height: 150%;
 
   .modal-wrapper {
     position: absolute;
@@ -15,7 +17,6 @@
   
     width: 600px;
     max-width: 90%;
-
     max-height: 100%;
   
     background-color: $white;
