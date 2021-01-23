@@ -37,6 +37,6 @@ const Photo: React.FC<{photoId: string}> = ({ photoId }) => {
       <div className='error'>{error}</div>}
     </div>
   );
-}
+};
 
 export default Photo;

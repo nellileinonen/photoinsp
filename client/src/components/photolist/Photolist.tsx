@@ -71,6 +71,6 @@ const Photolist: React.FC = () => {
 
     </div>
   );
-}
+};
 
 export default Photolist;

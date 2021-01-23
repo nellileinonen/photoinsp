@@ -8,6 +8,6 @@ const ShowMore: React.FC<{handleShowMore: Function}> = ({ handleShowMore }) => {
       <button onClick={() => handleShowMore()} className='show-more-button'>Show more</button>
     </div>
   );
-}
+};
 
 export default ShowMore;

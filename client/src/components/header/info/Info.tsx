@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './Info.scss';
 
 const Info: React.FC = () => {
@@ -38,6 +37,6 @@ const Info: React.FC = () => {
       </p>
     </div>
   );
-}
+};
 
 export default Info;

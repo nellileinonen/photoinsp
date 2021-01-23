@@ -8,6 +8,6 @@ const User: React.FC = () => {
       <p>info</p>
     </div>
   );
-}
+};
 
 export default User;

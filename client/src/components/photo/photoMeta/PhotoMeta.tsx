@@ -14,6 +14,6 @@ const PhotoMeta: React.FC = () => {
       <a href={fullUrl} target='_blank' rel='noreferrer'>Full-sized</a>
     </div>
   );
-}
+};
 
 export default PhotoMeta;

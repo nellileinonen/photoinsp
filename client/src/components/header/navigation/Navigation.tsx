@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { InfoCircleOutlined } from '@ant-design/icons';
-
 import './Navigation.scss';
 
 const Navigation: React.FC = () => {
@@ -28,6 +27,6 @@ const Navigation: React.FC = () => {
       }
     </nav>
   );
-}
+};
 
 export default Navigation;

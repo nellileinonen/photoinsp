@@ -9,6 +9,8 @@ Current version on Heroku: https://photoinsp.herokuapp.com/
 ### Front-end
 
 - React (Create React App with typescript template)
+- Redux
+- React Router
 
 The app state is managed with Redux.
 
@@ -18,6 +20,8 @@ Routing is implemented with the [BrowserRouter of React Router](https://reactrou
 
 - Node.js
 - Express
+
+The Express server is responsible for API calls. API key stays hidden from the front end when data from API is fetched using the proxy server and only the response data is sent back to the front end.
 
 ## How to develop and deploy
 

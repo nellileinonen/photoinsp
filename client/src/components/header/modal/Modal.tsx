@@ -19,7 +19,7 @@ const Modal: React.FC = ({ children }) => {
 
   /* Close modal by navigating to the root */
   const closeModal = () => {
-    history.replace({pathname: '/'})
+    history.replace({pathname: '/'});
   };
 
   /* If mouse is clicked outside modal, close modal */
@@ -54,6 +54,6 @@ const Modal: React.FC = ({ children }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Modal;
