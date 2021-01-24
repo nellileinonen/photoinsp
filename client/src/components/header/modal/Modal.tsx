@@ -13,9 +13,8 @@ import './Modal.scss';
  */
 
 const Modal: React.FC = ({ children }) => {
-  let history = useHistory();
-  // TODO: read again this https://www.carlrippon.com/react-refs-typescript/
-  const modalRef = useRef<HTMLInputElement>(null);
+  const history = useHistory();
+  const modalRef = useRef<HTMLDivElement>(null);
 
   /* Close modal by navigating to the root */
   const closeModal = () => {
@@ -23,8 +22,8 @@ const Modal: React.FC = ({ children }) => {
   };
 
   /* If mouse is clicked outside modal, close modal */
-  const handleClickOutside = (e: any) => {
-    if (modalRef.current !== null && (!modalRef.current.contains(e.target))) {
+  const handleClickOutside = (e: MouseEvent) => {
+    if (modalRef.current !== null && (!modalRef.current.contains(e.target as Element))) {
       closeModal();
     }
   };
@@ -35,10 +34,10 @@ const Modal: React.FC = ({ children }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   });
 
-  /* Close modal with ESC (keycode 27) */
+  /* Close modal with ESC */
   useEffect(() => {
-    function keyListener(e: any) {
-      if (e.keyCode === 27) {
+    function keyListener(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
         closeModal();
       }
     }

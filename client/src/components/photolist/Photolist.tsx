@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPhotos } from '../../redux/photolistSlice';
+import { fetchPhotos, ThumbnailType } from '../../redux/photolistSlice';
 import { RootState } from '../../redux/rootReducer';
 
 import { Link } from 'react-router-dom';
@@ -11,18 +11,6 @@ import ShowMore from './showMore/ShowMore';
 
 import { LoadingOutlined } from '@ant-design/icons';
 import './Photolist.scss';
-
-/*
- * Helper variable and function to create unique keys to photo thumbnails.
- * Photo id:s can't be used as keys because data in Unsplash updates often and
- * same photos can be fetched multiple times if the app is left open and after
- * some time the user continues browsing where they left
- */
-let photoCount = 1;
-const giveKey = () => {
-  photoCount = photoCount + 1;
-  return photoCount;
-};
 
 const Photolist: React.FC = () => {
   const dispatch = useDispatch();
@@ -46,10 +34,11 @@ const Photolist: React.FC = () => {
 
   return (
     <div>
+
       <div className='flex-container'>
-        {photos.map((photo: any) =>
+        {photos.map((photo: ThumbnailType) =>
         <Link
-          key={giveKey()}
+          key={photo.photoId}
           to={{pathname: `/photos/${photo.photoId}`}}
           className='flex-item'
         >

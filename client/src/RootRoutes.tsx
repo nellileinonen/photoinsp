@@ -10,15 +10,17 @@ import NoMatch from './components/noMatch/NoMatch';
 
 const RootRoutes = () => {
   // TODO: use proper type
+  // Location unknown nowadays: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/41674
   const location: any = useLocation();
-  console.log(location.state); 
 
   const background = location.state && location.state.background;
 
   let photoId = '';
-  const pathElements = location.pathname.split('/');
-  if (pathElements.length === 3 && pathElements[1] === 'photos') {
-    photoId = pathElements.pop();
+  if (typeof location.pathname !== undefined) {
+    const pathElements = location.pathname.split('/');
+    if (pathElements.length === 3 && pathElements[1] === 'photos') {
+      photoId = pathElements.pop();
+    }
   }
 
   return (

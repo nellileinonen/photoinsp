@@ -19,12 +19,14 @@ const axiosInstance = axios.create({
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '/client/build')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/client/build')));
+}
 
-app.get('/photos/:id', async (req, res) => {
+app.get('/photolist/:id', async (req, res) => {
   try {
-    // Fetch a photo using the same query path as request
-    const response = await axiosInstance.get(req.url);
+    const photoId = req.params.id;
+    const response = await axiosInstance.get(`/photos/${photoId}`);
     console.log('GET ', req.url);
     res.send(response.data);
   } catch (err) {
@@ -33,7 +35,7 @@ app.get('/photos/:id', async (req, res) => {
   }
 });
 
-app.get('/photos', async (req, res) => {
+app.get('/photolist', async (req, res) => {
   try {
     // Get page query parameter from request
     const pageNumber = req.query.page;
@@ -45,7 +47,7 @@ app.get('/photos', async (req, res) => {
         page: pageNumber
       }
     });
-    console.log('GET /photos');
+    console.log('GET ', req.url);
     res.send(response.data);
   } catch (err) {
     console.log(err);

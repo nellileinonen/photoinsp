@@ -44,49 +44,44 @@ var axios_1 = __importDefault(require("axios"));
 var path_1 = __importDefault(require("path"));
 // Require and configure .env where api key is defined
 require('dotenv').config();
-// Custom Axios instance with to prevent repetition when app is scaled larger
-// and it fetches info from multiple api endpoints
+/*
+ * Custom Axios instance to prevent repetition when the app is scaled larger
+ * and it fetches info from multiple api endpoints
+ */
 var axiosInstance = axios_1.default.create({
     method: 'GET',
     baseURL: 'https://api.unsplash.com',
     headers: {
         'Authorization': "Client-ID " + process.env.API_KEY
-    },
-    params: {
-        per_page: 30
     }
 });
 var app = express_1.default();
-app.use(express_1.default.static(path_1.default.join(__dirname, '/client/build')));
-app.get('/photos/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var response, err_1;
+if (process.env.NODE_ENV === 'production') {
+    app.use(express_1.default.static(path_1.default.join(__dirname, '/client/build')));
+}
+app.get('/photolist/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var photoId, response, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log('in server to get single photo: ', req.url);
-                _a.label = 1;
+                _a.trys.push([0, 2, , 3]);
+                photoId = req.params.id;
+                return [4 /*yield*/, axiosInstance.get("/photos/" + photoId)];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axiosInstance.get(req.url)];
-            case 2:
                 response = _a.sent();
                 console.log('GET ', req.url);
-                //console.log(response.data);
                 res.send(response.data);
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 3];
+            case 2:
                 err_1 = _a.sent();
                 console.log(err_1);
                 res.send(err_1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
-/* Keep API key hidden from front end by getting data from API here and
- * sending only the response data to front end
- */
-app.get('/photos', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.get('/photolist', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var pageNumber, response, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -95,6 +90,7 @@ app.get('/photos', function (req, res) { return __awaiter(void 0, void 0, void 0
                 pageNumber = req.query.page;
                 return [4 /*yield*/, axiosInstance.get('/photos', {
                         params: {
+                            per_page: 30,
                             page: pageNumber
                         }
                     })];
@@ -117,5 +113,5 @@ app.get('*', function (req, res) {
 });
 var port = process.env.PORT || 3001;
 app.listen(port, function () {
-    console.log("Server is running on port " + port);
+    console.log("Server is running: http://localhost:" + port);
 });

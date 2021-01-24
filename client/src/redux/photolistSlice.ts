@@ -1,31 +1,39 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+export interface ThumbnailType {
+  alt: string,
+  photoId: string,
+  thumbUrl: string
+}
+
 interface PhotolistState {
-  photolist: any, //[],
+  photolist: ThumbnailType[],
   status: 'idle' | 'loading' | 'succeeded' | 'failed',
   page: number,
-  error: any //string | null
+  photoCount: number,
+  error: string | null
 }
 
 const initialState = {
   photolist: [],
-  page: 1,
   status: 'idle',
+  page: 1,
+  photoCount: 1,
   error: null,
 } as PhotolistState;
 
-/* Fetch photos from API
- * Generated action types will start with 'photos/fetchPhotos'
+/* Fetch photos from API.
+ * Generated action types start with 'photolist/fetchPhotos'
  */
-export const fetchPhotos = createAsyncThunk('photos/fetchPhotos', async (pageNumber: number) => {
-  const response = await axios.get('/photos', {
+export const fetchPhotos = createAsyncThunk('photolist/fetchPhotos', async (pageNumber: number) => {
+  const response = await axios.get('/photolist', {
     params: {
       page: pageNumber
     }
   });
 
-  const newPhotos = response.data.map((item: any) => (
+  const newPhotos: PhotolistState = response.data.map((item: any) => (
     {
       'alt': item.alt_description,
       'photoId': item.id,
@@ -36,7 +44,8 @@ export const fetchPhotos = createAsyncThunk('photos/fetchPhotos', async (pageNum
 });
 
 /*
- *
+ * createSlice automatically generates action creators and action types
+ * that correspond to the reducers and state
  */
 const photolistSlice = createSlice({
   name: 'photolist',
@@ -51,25 +60,43 @@ const photolistSlice = createSlice({
     })
     .addCase(fetchPhotos.fulfilled, (state, action) => {
       console.log('fulfilled action: ', action.payload);
-      // Photo fetching was successfull if the action payload is an array
+      // Photo fetching was successful if the action payload is an array
       if (Array.isArray(action.payload)) {
-        // Update store state: status tells that the fetch succeeded, page tells the next page
-        // to be fetched and photos is the place for photos
-        state.status = 'succeeded';
-        state.page = state.page + 1;
-        state.photolist = state.photolist.concat(action.payload);
+
+        /* Data in Unsplash updates often and same photos can be fetched multiple times if
+         * the app is left open and after a while the user continues browsing where they left.
+         * Check that new photos fetched are not duplicates of the ones already visible.
+         */
+        const notInPhotolist = (thumbnail: ThumbnailType) => {
+          const found = state.photolist.find(item => item.photoId === thumbnail.photoId);
+          if (typeof found === 'undefined') {
+            return true;
+          } else {
+            return false;
+          }
+        }
+        const newPhotos = action.payload.filter((item: ThumbnailType) => notInPhotolist(item));
+
+        if (newPhotos.length > 0) {
+          // Update store state: status tells that the fetch succeeded, page tells the next page
+          // to be fetched and photos is the place for photos
+          state.status = 'succeeded';
+          state.page = state.page + 1;
+          state.photolist = state.photolist.concat(newPhotos);
+        } else {
+          state.status = 'failed';
+          state.error = 'Could not load photos. Please, refresh the page to get the newest content!';
+        }
       } else {
         // If action payload is something else than an array, fetch failed
         state.status = 'failed';
         state.error = 'Could not load photos.';
-        //state.error = action.payload;
       }
     })
     .addCase(fetchPhotos.rejected, (state, action) => {
-      console.log('failed action: ', action);
+      console.log('failed action: ', action.payload);
       state.status = 'failed';
       state.error = 'Could not load photos.';
-      //state.error = action.payload;
     })
   },
 });
