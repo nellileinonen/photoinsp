@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 
 import Photolist from './components/photolist/Photolist';
 import Modal from './components/header/modal/Modal';
@@ -24,19 +24,29 @@ const RootRoutes = () => {
   return (
     <div>
       <Switch location={background || location}>
+
         <Route exact path="/">
           <Header />
           <Photolist />
         </Route>
+
         <Route path='/info'>
           <Modal children={<Info />}/>
         </Route>
+
+        {/* Redirect to the photo list view */}
+        <Route exact path='/photos'>
+          <Redirect to='/'/>
+        </Route>
+
         <Route path='/photos/:photoId'>
           <Photo photoId={photoId}/>
         </Route>
+
         <Route path='*' >
           <NoMatch />
         </Route>
+
       </Switch>
 
       {/* Modal view on top of background if background is set */}

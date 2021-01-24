@@ -8,6 +8,6 @@ const Thumbnail: React.FC<{photoId: string, thumbUrl: string, alt: string}>
   return (
     <img src={thumbUrl} alt={alt} className='thumbnail'/>
   );
-}
+};
 
 export default Thumbnail;

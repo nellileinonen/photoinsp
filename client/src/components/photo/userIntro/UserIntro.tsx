@@ -24,6 +24,6 @@ const UserIntro: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default UserIntro;
