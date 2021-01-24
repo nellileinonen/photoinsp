@@ -96,7 +96,7 @@ app.get('/photolist', function (req, res) { return __awaiter(void 0, void 0, voi
                     })];
             case 1:
                 response = _a.sent();
-                console.log('GET /photos');
+                console.log('GET ', req.url);
                 res.send(response.data);
                 return [3 /*break*/, 3];
             case 2:
