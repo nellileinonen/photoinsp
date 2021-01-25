@@ -70,7 +70,6 @@ const photoSlice = createSlice({
       state.error = null;
     })
     .addCase(fetchPhoto.fulfilled, (state, action) => {
-      console.log('fulfilled action: ', action.payload);
       // Update store state: status tells that the fetch succeeded, photoId is the id of the fetched
       // photo and photo contains all the necessary info of the photo
       state.status = 'succeeded';
@@ -78,7 +77,6 @@ const photoSlice = createSlice({
       state.photo = action.payload;
     })
     .addCase(fetchPhoto.rejected, (state, action) => {
-      console.log('failed action: ', action.payload);
       state.status = 'failed';
       state.error = 'Could not load photo.';
     })

@@ -60,7 +60,6 @@ const photolistSlice = createSlice({
       state.error = null;
     })
     .addCase(fetchPhotos.fulfilled, (state, action) => {
-      console.log('fulfilled action: ', action.payload);
       // Photo fetching was successful if the action payload is an array
       if (Array.isArray(action.payload)) {
 
@@ -95,7 +94,6 @@ const photolistSlice = createSlice({
       }
     })
     .addCase(fetchPhotos.rejected, (state, action) => {
-      console.log('failed action: ', action.payload);
       state.status = 'failed';
       state.error = 'Could not load photos.';
     })

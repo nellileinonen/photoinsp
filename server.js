@@ -108,6 +108,52 @@ app.get('/photolist', function (req, res) { return __awaiter(void 0, void 0, voi
         }
     });
 }); });
+app.get('/photographer/:username/photos', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var username, response, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                username = req.params.username;
+                return [4 /*yield*/, axiosInstance.get("/users/" + username + "/photos", {
+                        params: {
+                            per_page: 30
+                        }
+                    })];
+            case 1:
+                response = _a.sent();
+                res.send(response.data);
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                console.log(err_3);
+                res.send(err_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+app.get('/photographer/:username', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var username, response, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                username = req.params.username;
+                return [4 /*yield*/, axiosInstance.get("/users/" + username)];
+            case 1:
+                response = _a.sent();
+                res.send(response.data);
+                return [3 /*break*/, 3];
+            case 2:
+                err_4 = _a.sent();
+                console.log(err_4);
+                res.send(err_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
 app.get('*', function (req, res) {
     res.sendFile(path_1.default.join(__dirname, '/client/build/index.html'));
 });

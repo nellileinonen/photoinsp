@@ -28,8 +28,6 @@ export const fetchPhotographerPhotolist =
     }
   ));
 
-  console.log('newPhotographerPhotolist: ', newPhotographerPhotolist);
-
   return newPhotographerPhotolist;
 });
 
@@ -49,14 +47,12 @@ const photographerPhotolistSlice = createSlice({
       state.error = null;
     })
     .addCase(fetchPhotographerPhotolist.fulfilled, (state, action) => {
-      console.log('fulfilled action: ', action.payload);
       // Update store state: status tells that the fetch succeeded and
       // photographer contains all the necessary info of the photographer
       state.status = 'succeeded';
       state.photolist = action.payload;
     })
     .addCase(fetchPhotographerPhotolist.rejected, (state, action) => {
-      console.log('failed action: ', action.payload);
       state.status = 'failed';
       state.error = 'Could not load photographer\'s photos.';
     })

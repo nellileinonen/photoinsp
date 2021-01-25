@@ -46,8 +46,6 @@ export const fetchPhotographer = createAsyncThunk('photographer/fetchPhotographe
     photographerPhotosUrl: data.links.photos
   };
 
-  console.log('newPhotographer: ', newPhotographer);
-
   return newPhotographer;
 });
 
@@ -67,14 +65,12 @@ const photographerSlice = createSlice({
       state.error = null;
     })
     .addCase(fetchPhotographer.fulfilled, (state, action) => {
-      console.log('fulfilled action: ', action.payload);
       // Update store state: status tells that the fetch succeeded and
       // photographer contains all the necessary info of the photographer
       state.status = 'succeeded';
       state.photographer = action.payload;
     })
     .addCase(fetchPhotographer.rejected, (state, action) => {
-      console.log('failed action: ', action.payload);
       state.status = 'failed';
       state.error = 'Could not load photographer info.';
     })
