@@ -42,8 +42,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var axios_1 = __importDefault(require("axios"));
 var path_1 = __importDefault(require("path"));
-// Require and configure .env where api key is defined
-require('dotenv').config();
+var dotenv_1 = __importDefault(require("dotenv"));
+// Api key is defined as an environment variable
+dotenv_1.default.config();
 /*
  * Custom Axios instance to prevent repetition when the app is scaled larger
  * and it fetches info from multiple api endpoints
@@ -69,7 +70,6 @@ app.get('/photolist/:id', function (req, res) { return __awaiter(void 0, void 0,
                 return [4 /*yield*/, axiosInstance.get("/photos/" + photoId)];
             case 1:
                 response = _a.sent();
-                console.log('GET ', req.url);
                 res.send(response.data);
                 return [3 /*break*/, 3];
             case 2:
@@ -96,7 +96,6 @@ app.get('/photolist', function (req, res) { return __awaiter(void 0, void 0, voi
                     })];
             case 1:
                 response = _a.sent();
-                console.log('GET ', req.url);
                 res.send(response.data);
                 return [3 /*break*/, 3];
             case 2:
@@ -109,15 +108,17 @@ app.get('/photolist', function (req, res) { return __awaiter(void 0, void 0, voi
     });
 }); });
 app.get('/photographer/:username/photos', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, response, err_3;
+    var username, pageNumber, response, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 username = req.params.username;
+                pageNumber = req.query.page;
                 return [4 /*yield*/, axiosInstance.get("/users/" + username + "/photos", {
                         params: {
-                            per_page: 30
+                            per_page: 30,
+                            page: pageNumber
                         }
                     })];
             case 1:
