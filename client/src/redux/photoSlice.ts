@@ -55,7 +55,7 @@ export const fetchPhoto = createAsyncThunk('photo/fetchPhoto', async (photoId: s
 });
 
 /*
-* createSlice automatically generates action creators and action types
+ * createSlice automatically generates action creators and action types
  * that correspond to the reducers and state
  */
 const photoSlice = createSlice({

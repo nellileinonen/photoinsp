@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchPhoto } from '../../redux/photoSlice';
 import { RootState } from '../../redux/rootReducer';
-
 import PhotoMeta from './photoMeta/PhotoMeta';
-import UserIntro from './userIntro/UserIntro';
-
+import PhotographerIntro from './photographerIntro/PhotographerIntro';
 import { LoadingOutlined } from '@ant-design/icons';
 import './Photo.scss';
 
@@ -23,6 +20,7 @@ const Photo: React.FC<{photoId: string}> = ({ photoId }) => {
 
   return (
     <div className='photo-view'>
+
       {photoStatus === 'loading' &&
       <LoadingOutlined className='loading'/>}
 
@@ -30,11 +28,12 @@ const Photo: React.FC<{photoId: string}> = ({ photoId }) => {
       <>
         <img src={photo.regularUrl} alt={photo.alt} className='regular-photo'/>
         <PhotoMeta />
-        <UserIntro />
+        <PhotographerIntro />
       </>}
 
       {photoStatus === 'failed' &&
       <div className='error'>{error}</div>}
+
     </div>
   );
 };

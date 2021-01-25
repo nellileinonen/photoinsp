@@ -4,6 +4,8 @@ A web app displaying inspirational photos from [Unsplash API](https://unsplash.c
 
 Current version on Heroku: https://photoinsp.herokuapp.com/
 
+![Photoinsp](photoinsp.png)
+
 ## Tech
 
 ### Front end
