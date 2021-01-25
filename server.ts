@@ -26,8 +26,10 @@ if (process.env.NODE_ENV === 'production') {
 app.get('/photolist/:id', async (req, res) => {
   try {
     const photoId = req.params.id;
+
+    // Get a single photo
     const response = await axiosInstance.get(`/photos/${photoId}`);
-    console.log('GET ', req.url);
+
     res.send(response.data);
   } catch (err) {
     console.log(err);
@@ -37,7 +39,6 @@ app.get('/photolist/:id', async (req, res) => {
 
 app.get('/photolist', async (req, res) => {
   try {
-    // Get page query parameter from request
     const pageNumber = req.query.page;
 
     // Fetch photos from right page using page query parameter
@@ -47,7 +48,7 @@ app.get('/photolist', async (req, res) => {
         page: pageNumber
       }
     });
-    console.log('GET ', req.url);
+
     res.send(response.data);
   } catch (err) {
     console.log(err);
@@ -58,13 +59,16 @@ app.get('/photolist', async (req, res) => {
 app.get('/photographer/:username/photos', async (req, res) => {
   try {
     const username = req.params.username;
+    const pageNumber = req.query.page;
 
-    // Photographer's photos (30 or less). TODO Maybe fetch photos from multiple pages
+    // Get photographer's photos
     const response = await axiosInstance.get(`/users/${username}/photos`, {
       params: {
-        per_page: 30
+        per_page: 30,
+        page: pageNumber
       }
     });
+
     res.send(response.data);
   } catch (err) {
     console.log(err);
@@ -76,8 +80,9 @@ app.get('/photographer/:username', async (req, res) => {
   try {
     const username = req.params.username;
 
-    // Photographer info
+    // Get photographer info
     const response = await axiosInstance.get(`/users/${username}`);
+
     res.send(response.data);
   } catch (err) {
     console.log(err);

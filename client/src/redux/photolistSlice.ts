@@ -4,7 +4,9 @@ import axios from 'axios';
 export interface ThumbnailType {
   alt: string,
   photoId: string,
-  thumbUrl: string
+  thumbUrl: string,
+  // TODO make this compulsory
+  username: string
 }
 
 export interface PhotolistState {
@@ -33,12 +35,12 @@ export const fetchPhotos = createAsyncThunk('photolist/fetchPhotos', async (page
     }
   });
 
-  //const newPhotos: PhotolistState = response.data.map((item: any) => (
   const newPhotos: ThumbnailType[] = response.data.map((item: any) => (
     {
       'alt': item.alt_description,
       'photoId': item.id,
       'thumbUrl': item.urls.thumb,
+      'username': item.user.username
     }
   ));
   return newPhotos;

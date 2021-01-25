@@ -14,6 +14,7 @@ const Photographer: React.FC<{ username: string }> = ({ username }) => {
   const photographerStatus = useSelector((state: RootState) => state.photographer.status);
   const error = useSelector((state: RootState) => state.photographer.error);
 
+  const profileImg = photographer.profileImg;
   const firstName = photographer.firstName;
   const lastName = photographer.lastName;
   const name = `${firstName} ${lastName}`;
@@ -35,7 +36,7 @@ const Photographer: React.FC<{ username: string }> = ({ username }) => {
       <>
         <div className='flex-container photographer-container'>
           <div className='flex-item'>
-            <img src={photographer.profileImg} alt={name} className='profile-img'/>
+            <img src={profileImg} alt={name} className='profile-img'/>
             <h2>
               {firstName}
               <br/>

@@ -57,7 +57,10 @@ const RootRoutes = () => {
       </Switch>
 
       {/* Modal view on top of background if background is set */}
-      {background && <Route path='/info'><Modal children={<Info />}/></Route>}
+      {background &&
+      <Route path='/info'>
+        <Modal children={<Info />} />
+      </Route>}
 
     </div>
   );
