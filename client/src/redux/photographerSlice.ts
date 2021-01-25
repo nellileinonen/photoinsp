@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-interface Photographer  {
+interface Photographer {
   photographerId: string,
   username: string,
   firstName: string,
@@ -22,28 +22,25 @@ interface PhotographerState {
 const initialState = {
   photographer: {},
   status: 'idle',
-  error: null
+  error: null,
 } as PhotographerState;
 
 /* Fetch info of photographer from API.
  * Generated action types will start with 'photographer/fetchPhotographer'
  */
-export const fetchPhotographer = createAsyncThunk('photographer/fetchPhotographer',
-  async (username: string) => {
-
+export const fetchPhotographer = createAsyncThunk('photographer/fetchPhotographer', async (username: string) => {
   const response = await axios.get(`/photographer/${username}`);
   const data = response.data;
-
   const newPhotographer: Photographer = {
     photographerId: data.id,
-    username: username,
+    username,
     firstName: data.first_name,
     lastName: data.last_name,
     bio: data.bio,
     totalPhotos: data.total_photos,
     totalCollections: data.total_collections,
     profileImg: data.profile_image.large,
-    photographerPhotosUrl: data.links.photos
+    photographerPhotosUrl: data.links.photos,
   };
 
   return newPhotographer;
@@ -58,23 +55,23 @@ const photographerSlice = createSlice({
   initialState,
   reducers: {},
   // Use "builder callback" syntax as it is recommended with TypeScript
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-    .addCase(fetchPhotographer.pending, (state, action) => {
-      state.status = 'loading';
-      state.error = null;
-    })
-    .addCase(fetchPhotographer.fulfilled, (state, action) => {
-      // Update store state: status tells that the fetch succeeded and
-      // photographer contains all the necessary info of the photographer
-      state.status = 'succeeded';
-      state.photographer = action.payload;
-    })
-    .addCase(fetchPhotographer.rejected, (state, action) => {
-      state.status = 'failed';
-      state.error = 'Could not load photographer info.';
-    })
-  },
+      .addCase(fetchPhotographer.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(fetchPhotographer.fulfilled, (state, action) => {
+        // Update store state: status tells that the fetch succeeded and
+        // photographer contains all the necessary info of the photographer
+        state.status = 'succeeded';
+        state.photographer = action.payload;
+      })
+      .addCase(fetchPhotographer.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = 'Could not load photographer info.';
+      })
+  }
 });
 
 export default photographerSlice.reducer;

@@ -18,8 +18,8 @@ const RootRoutes = () => {
   let param = '';
   if (typeof location.pathname !== undefined) {
     const pathElements = location.pathname.split('/');
-    if (pathElements.length === 3 &&
-      (pathElements[1] === 'photos' || pathElements[1] === 'photographer')) {
+    if (pathElements.length === 3
+      && (pathElements[1] === 'photos' || pathElements[1] === 'photographer')) {
       param = pathElements.pop();
     }
   }
@@ -34,33 +34,38 @@ const RootRoutes = () => {
         </Route>
 
         <Route path='/info'>
-          <Modal children={<Info />}/>
+          <Modal>
+            <Info />
+          </Modal>
         </Route>
 
         {/* Redirect to the photo list view */}
         <Route exact path='/photos'>
-          <Redirect to='/'/>
+          <Redirect to='/' />
         </Route>
 
         <Route path='/photos/:photoId'>
-          <Photo photoId={param}/>
+          <Photo photoId={param} />
         </Route>
 
         <Route path='/photographer/:username'>
-          <Photographer username={param}/>
+          <Photographer username={param} />
         </Route>
 
-        <Route path='*' >
+        <Route path='*'>
           <NoMatch />
         </Route>
 
       </Switch>
 
       {/* Modal view on top of background if background is set */}
-      {background &&
+      {background && (
       <Route path='/info'>
-        <Modal children={<Info />} />
-      </Route>}
+        <Modal>
+          <Info />
+        </Modal>
+      </Route>
+      )}
 
     </div>
   );

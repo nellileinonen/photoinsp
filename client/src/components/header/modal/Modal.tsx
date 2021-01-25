@@ -18,7 +18,7 @@ const Modal: React.FC = ({ children }) => {
 
   /* Close modal by navigating to the root */
   const closeModal = () => {
-    history.replace({pathname: '/'});
+    history.replace({ pathname: '/' });
   };
 
   /* If mouse is clicked outside modal, close modal */
@@ -48,7 +48,9 @@ const Modal: React.FC = ({ children }) => {
   return (
     <div className='modal-bg' role='dialog' aria-modal='true'>
       <div ref={modalRef} className='modal-wrapper'>
-        <button onClick={() => closeModal()} className='close'>X</button>
+        <button type='button' onClick={() => closeModal()} className='close'>
+          X
+        </button>
         {children}
       </div>
     </div>

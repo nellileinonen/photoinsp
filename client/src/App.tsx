@@ -7,7 +7,7 @@ import './App.scss';
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="App">
+      <div className='App'>
         <Navigation />
         <RootRoutes />
       </div>

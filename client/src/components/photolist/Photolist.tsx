@@ -9,7 +9,7 @@ import Error from '../statusIndicators/error/Error';
 
 const Photolist: React.FC = () => {
   const dispatch = useDispatch();
-  
+
   const photos = useSelector((state: RootState) => state.photolist.photolist);
   const photosStatus = useSelector((state: RootState) => state.photolist.status);
   const pageNumber = useSelector((state: RootState) => state.photolist.page);

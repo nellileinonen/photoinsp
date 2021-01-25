@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
+import App from './App';
 
 test('renders without crashing', () => {
   const initialState = {
@@ -18,7 +18,7 @@ test('renders without crashing', () => {
       photo: {},
       status: 'idle',
       error: null,
-    }
+    },
   };
 
   const mockStore = configureStore();

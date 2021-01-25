@@ -7,7 +7,7 @@ import Loading from '../statusIndicators/loading/Loading';
 import Error from '../statusIndicators/error/Error';
 import './Photographer.scss';
 
-const Photographer: React.FC<{ username: string }> = ({ username }) => { 
+const Photographer: React.FC<{ username: string }> = ({ username }) => {
   const dispatch = useDispatch();
 
   const photographer = useSelector((state: RootState) => state.photographer.photographer);
@@ -21,7 +21,7 @@ const Photographer: React.FC<{ username: string }> = ({ username }) => {
   const bio = photographer.bio;
   const totalPhotos = photographer.totalPhotos;
   const totalCollections = photographer.totalCollections;
-  
+
   useEffect(() => {
     dispatch(fetchPhotographer(username));
   }, [dispatch, username]);
@@ -33,13 +33,14 @@ const Photographer: React.FC<{ username: string }> = ({ username }) => {
       <Loading />}
 
       {photographerStatus === 'succeeded' &&
+      (
       <>
         <div className='flex-container photographer-container'>
           <div className='flex-item'>
             <img src={profileImg} alt={name} className='profile-img'/>
             <h2>
               {firstName}
-              <br/>
+              <br />
               {lastName}
             </h2>
           </div>
@@ -48,16 +49,20 @@ const Photographer: React.FC<{ username: string }> = ({ username }) => {
               {bio}
             </p>
             <p>
-              Username: {username}
-              <br/>
-              Photos: {totalPhotos}
-              <br/>
-              Collections: {totalCollections}
+              Username:
+              {username}
+              <br />
+              Photos:
+              {totalPhotos}
+              <br />
+              Collections:
+              {totalCollections}
             </p>
           </div>
         </div>
         <PhotographerPhotolist username={username} />
-      </>}
+      </>
+      )}
 
       {photographerStatus === 'failed' &&
       <Error errorMsg={error} />}

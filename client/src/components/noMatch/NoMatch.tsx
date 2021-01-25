@@ -7,7 +7,7 @@ const NoMatch: React.FC = () => {
     <div className='no-match'>
       <p>
         The page you requested could not be found.
-        <br/>
+        <br />
         Please, continue browsing to the
         {' '}
         <Link to='/'>

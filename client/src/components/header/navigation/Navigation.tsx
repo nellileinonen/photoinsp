@@ -9,21 +9,26 @@ const Navigation: React.FC = () => {
 
   return (
     <nav>
-      <Link to='/'
+      <Link
+        to='/'
         className='home'
       >
         Photoinsp
       </Link>
       {atRoot &&
-      <Link to={{
-        pathname: '/info',
-        state: { background: location }
+      (
+      <Link
+        to={{
+          pathname: '/info',
+          state: {
+            background: location
+          }
         }}
         className='info'
       >
         <InfoCircleOutlined />
       </Link>
-      }
+      )}
     </nav>
   );
 };

@@ -7,7 +7,7 @@ const Header: React.FC = () => {
       <h1>Photoinsp</h1>
       <h2>Browse photos, relax and get inspired</h2>
       <div className='divider'>
-        <span className='line'></span>
+        <span className='line' />
       </div>
     </header>
   );

@@ -19,7 +19,7 @@ const PhotographerIntro: React.FC = () => {
   return (
     <div className='photographer-intro'>
       <div>
-        <img src={userImgUrl} alt='' className='photographer-img'/>
+        <img src={userImgUrl} alt='' className='photographer-img' />
       </div>
       <div className='photographer-name'>
         <p>
@@ -29,8 +29,9 @@ const PhotographerIntro: React.FC = () => {
           >
             {userRealName}
           </Link>
-          <br/>
-          Username: {username}
+          <br />
+          Username:
+          {username}
         </p>
       </div>
     </div>

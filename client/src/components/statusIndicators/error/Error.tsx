@@ -6,7 +6,7 @@ const Error: React.FC<{ errorMsg: string | null }> = ({ errorMsg }) => {
     <div className='error'>
       {errorMsg !== null ?
       <p>{errorMsg}</p> :
-      <p>Could not load content.</p> 
+      <p>Could not load content.</p>
       }
     </div>
   );

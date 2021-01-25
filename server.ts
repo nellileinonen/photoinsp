@@ -1,9 +1,10 @@
 import express from 'express';
 import axios from 'axios';
 import path from 'path';
+import dotenv from 'dotenv';
 
-// Require and configure .env where api key is defined
-require('dotenv').config();
+// Api key is defined as an environment variable
+dotenv.config();
 
 /*
  * Custom Axios instance to prevent repetition when the app is scaled larger

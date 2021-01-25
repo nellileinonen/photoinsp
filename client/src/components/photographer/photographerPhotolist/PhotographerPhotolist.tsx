@@ -7,7 +7,7 @@ import Loading from '../../statusIndicators/loading/Loading';
 import Error from '../../statusIndicators/error/Error';
 import ThumbnailList from '../../photolist/thumbnailList/ThumbnailList';
 
-const PhotographerPhotolist: React.FC<{ username: string }> = ({ username }) => { 
+const PhotographerPhotolist: React.FC<{ username: string }> = ({ username }) => {
   const dispatch = useDispatch();
 
   const photos = useSelector((state: RootState) => state.photographerPhotolist.photolist);
@@ -17,14 +17,14 @@ const PhotographerPhotolist: React.FC<{ username: string }> = ({ username }) => 
 
   useEffect(() => {
     if (status === 'idle') {
-      const obj = {'username': username, 'pageNumber': page}
+      const obj = {username: username, pageNumber: page}
       dispatch(fetchPhotographerPhotolist(obj));
     }
   }, [dispatch, username, status, page]);
 
   // Dispatch action to fetch more photos from the photographer
   const handleShowMore = () => {
-    const obj = {'username': username, 'pageNumber': page}
+    const obj = {username: username, pageNumber: page}
     dispatch(fetchPhotographerPhotolist(obj));
   };
 

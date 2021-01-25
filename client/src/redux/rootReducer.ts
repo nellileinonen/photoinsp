@@ -8,7 +8,7 @@ export const rootReducer = combineReducers({
   photolist: photolistReducer,
   photo: photoReducer,
   photographer: photographerReducer,
-  photographerPhotolist: photographerPhotolistReducer
+  photographerPhotolist: photographerPhotolistReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

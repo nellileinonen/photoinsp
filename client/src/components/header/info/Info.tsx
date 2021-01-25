@@ -19,21 +19,24 @@ const Info: React.FC = () => {
         {' '}
         <a href='https://unsplash.com/developers' target='_blank' rel='noreferrer'>
           Unsplash API
-        </a>. Every photo view has a link to the original full-sized photo.
+        </a>
+        . Every photo view has a link to the original full-sized photo.
       </p>
       <h3>Who made this?</h3>
       <p>
         The app is created by a hobbyist web developer
         {' '}
-        <a href='https://github.com/nellileinonen' target='_blank'  rel='noreferrer'>
+        <a href='https://github.com/nellileinonen' target='_blank' rel='noreferrer'>
           Nelli Leinonen
-        </a>.
+        </a>
+        .
         {' '}
         Source code on
         {' '}
         <a href='https://github.com/nellileinonen/photoinsp' target='_blank' rel='noreferrer'>
           GitHub
-        </a>.
+        </a>
+        .
       </p>
     </div>
   );
