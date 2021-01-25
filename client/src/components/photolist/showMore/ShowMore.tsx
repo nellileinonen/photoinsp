@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './ShowMore.scss';
 
 const ShowMore: React.FC<{handleShowMore: Function}> = ({ handleShowMore }) => {

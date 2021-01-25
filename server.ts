@@ -55,6 +55,36 @@ app.get('/photolist', async (req, res) => {
   }
 });
 
+app.get('/photographer/:username/photos', async (req, res) => {
+  try {
+    const username = req.params.username;
+
+    // Photographer's photos (30 or less). TODO Maybe fetch photos from multiple pages
+    const response = await axiosInstance.get(`/users/${username}/photos`, {
+      params: {
+        per_page: 30
+      }
+    });
+    res.send(response.data);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+});
+
+app.get('/photographer/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+
+    // Photographer info
+    const response = await axiosInstance.get(`/users/${username}`);
+    res.send(response.data);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });

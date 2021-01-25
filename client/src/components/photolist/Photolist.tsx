@@ -1,16 +1,11 @@
 import React, { useEffect } from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPhotos, ThumbnailType } from '../../redux/photolistSlice';
+import { fetchPhotos } from '../../redux/photolistSlice';
 import { RootState } from '../../redux/rootReducer';
-
-import { Link } from 'react-router-dom';
-
-import Thumbnail from './thumbnail/Thumbnail';
+import ThumbnailList from './thumbnailList/ThumbnailList';
 import ShowMore from './showMore/ShowMore';
-
-import { LoadingOutlined } from '@ant-design/icons';
-import './Photolist.scss';
+import Loading from '../statusIndicators/loading/Loading';
+import Error from '../statusIndicators/error/Error';
 
 const Photolist: React.FC = () => {
   const dispatch = useDispatch();
@@ -35,28 +30,16 @@ const Photolist: React.FC = () => {
   return (
     <div>
 
-      <div className='flex-container'>
-        {photos.map((photo: ThumbnailType) =>
-        <Link
-          key={photo.photoId}
-          to={{pathname: `/photos/${photo.photoId}`}}
-          className='flex-item'
-        >
-          <Thumbnail photoId={photo.photoId} thumbUrl={photo.thumbUrl} alt={photo.alt} />
-        </Link>
-        )}
-      </div>
+      <ThumbnailList thumbnails={photos} />
 
       {photosStatus === 'loading' &&
-      <LoadingOutlined className='loading'/>}
+      <Loading />}
 
       {photosStatus === 'succeeded' &&
       <ShowMore handleShowMore={handleShowMore} />}
 
       {photosStatus === 'failed' &&
-      <div className='error'>
-        {error}
-      </div>}
+      <Error errorMsg={error} />}
 
     </div>
   );

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
-
 import Photolist from './components/photolist/Photolist';
 import Modal from './components/header/modal/Modal';
 import Info from './components/header/info/Info';
 import Photo from './components/photo/Photo';
 import Header from './components/header/Header';
 import NoMatch from './components/noMatch/NoMatch';
+import Photographer from './components/photographer/Photographer';
 
 const RootRoutes = () => {
   // TODO: use proper type
@@ -15,11 +15,12 @@ const RootRoutes = () => {
 
   const background = location.state && location.state.background;
 
-  let photoId = '';
+  let param = '';
   if (typeof location.pathname !== undefined) {
     const pathElements = location.pathname.split('/');
-    if (pathElements.length === 3 && pathElements[1] === 'photos') {
-      photoId = pathElements.pop();
+    if (pathElements.length === 3 &&
+      (pathElements[1] === 'photos' || pathElements[1] === 'photographer')) {
+      param = pathElements.pop();
     }
   }
 
@@ -42,7 +43,11 @@ const RootRoutes = () => {
         </Route>
 
         <Route path='/photos/:photoId'>
-          <Photo photoId={photoId}/>
+          <Photo photoId={param}/>
+        </Route>
+
+        <Route path='/photographer/:username'>
+          <Photographer username={param}/>
         </Route>
 
         <Route path='*' >

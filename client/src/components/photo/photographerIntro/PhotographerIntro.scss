@@ -1,4 +1,4 @@
-.user-intro {
+.photographer-intro {
   padding: 15px;
 
   display: flex;
@@ -8,14 +8,14 @@
     margin: 20px;
   }
 
-  .user-name {
+  .photographer-name {
     text-align: left;
     line-height: 1.5rem;
   }
 }
 
 @media(min-width: 600px) {
-  .user-intro {
+  .photographer-intro {
     justify-content: center;
   }
 }

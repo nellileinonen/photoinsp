@@ -7,11 +7,12 @@ export interface ThumbnailType {
   thumbUrl: string
 }
 
-interface PhotolistState {
+export interface PhotolistState {
   photolist: ThumbnailType[],
+  // Username is defined if it's a photographer's photo list
+  username?: string,
   status: 'idle' | 'loading' | 'succeeded' | 'failed',
   page: number,
-  photoCount: number,
   error: string | null
 }
 
@@ -19,7 +20,6 @@ const initialState = {
   photolist: [],
   status: 'idle',
   page: 1,
-  photoCount: 1,
   error: null,
 } as PhotolistState;
 
@@ -33,7 +33,8 @@ export const fetchPhotos = createAsyncThunk('photolist/fetchPhotos', async (page
     }
   });
 
-  const newPhotos: PhotolistState = response.data.map((item: any) => (
+  //const newPhotos: PhotolistState = response.data.map((item: any) => (
+  const newPhotos: ThumbnailType[] = response.data.map((item: any) => (
     {
       'alt': item.alt_description,
       'photoId': item.id,
